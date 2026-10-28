@@ -65,8 +65,6 @@ FocusGuard_AI/
 
 ### 1. Clone the repository
 
-Replace `YOUR_USERNAME` with your GitHub username.
-
 ```bash
 https://github.com/AmeyGhogare/FocusGuard_AI.git
 cd FocusGuard_AI
@@ -153,9 +151,6 @@ http://127.0.0.1:5000
 - Add configurable session thresholds and analytics settings.
 - Evaluate performance across different lighting and camera conditions.
 
-## License
-
-Choose a license before publishing if you want others to reuse or modify the project. For example, you can use the MIT License by adding a `LICENSE` file with the appropriate license text.
 
 ## Author
 
@@ -163,4 +158,3 @@ Choose a license before publishing if you want others to reuse or modify the pro
 
 GitHub: `https://github.com/AmeyGhogare`
 
-LinkedIn: Add your LinkedIn profile URL here.
