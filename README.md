@@ -68,7 +68,7 @@ FocusGuard_AI/
 Replace `YOUR_USERNAME` with your GitHub username.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/FocusGuard_AI.git
+https://github.com/AmeyGhogare/FocusGuard_AI.git
 cd FocusGuard_AI
 ```
 
@@ -161,6 +161,6 @@ Choose a license before publishing if you want others to reuse or modify the pro
 
 **Amey Ghogare**
 
-GitHub: `https://github.com/YOUR_USERNAME`
+GitHub: `https://github.com/AmeyGhogare`
 
 LinkedIn: Add your LinkedIn profile URL here.
