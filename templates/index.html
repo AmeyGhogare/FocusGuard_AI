@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusGuard AI | Attention Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">FG</div>
+                <div>
+                    <h1>FocusGuard <span>AI</span></h1>
+                    <p>Attention Monitoring & Analytics</p>
+                </div>
+            </div>
+
+            <div class="header-status">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Ready to start</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="welcome-section">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL ANALYTICS</p>
+                    <h2>Attention Dashboard</h2>
+                    <p class="section-description">
+                        Monitor attention signals and review your session performance.
+                    </p>
+                </div>
+
+                <div class="controls">
+                    <button id="startBtn" class="btn btn-primary">
+                        <span>▶</span> Start Monitoring
+                    </button>
+                    <button id="stopBtn" class="btn btn-danger" disabled>
+                        <span>■</span> Stop Session
+                    </button>
+                </div>
+            </section>
+
+            <section class="kpi-grid">
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Session Duration</span>
+                        <span class="kpi-icon purple">◷</span>
+                    </div>
+                    <h3 id="duration">00:00</h3>
+                    <p class="kpi-note">Current monitoring session</p>
+                </article>
+
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Focus Percentage</span>
+                        <span class="kpi-icon green">◎</span>
+                    </div>
+                    <h3 id="focusPercentage">0%</h3>
+                    <p class="kpi-note">Time classified as focused</p>
+                </article>
+
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Blink Count</span>
+                        <span class="kpi-icon blue">◉</span>
+                    </div>
+                    <h3 id="blinkCount">0</h3>
+                    <p class="kpi-note">Detected eye blinks</p>
+                </article>
+
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Distraction Events</span>
+                        <span class="kpi-icon orange">↗</span>
+                    </div>
+                    <h3 id="distractionEvents">0</h3>
+                    <p class="kpi-note">Detected attention changes</p>
+                </article>
+            </section>
+
+            <section class="main-grid">
+                <article class="panel camera-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Live Monitoring</h3>
+                            <p>Real-time webcam attention signals</p>
+                        </div>
+                        <span id="cameraBadge" class="badge badge-neutral">
+                            Camera offline
+                        </span>
+                    </div>
+
+                    <div class="video-wrapper">
+                        <img id="videoFeed" src="" alt="Live webcam feed">
+                        <div id="videoPlaceholder" class="video-placeholder">
+                            <div class="camera-placeholder-icon">◉</div>
+                            <h4>Camera preview</h4>
+                            <p>Click Start Monitoring to begin your session.</p>
+                        </div>
+                    </div>
+
+                    <div class="current-state">
+                        <div>
+                            <p class="muted-label">CURRENT ATTENTION STATE</p>
+                            <h3 id="attentionState">Unknown</h3>
+                        </div>
+                        <span id="stateIndicator" class="state-indicator"></span>
+                    </div>
+
+                    <p id="statusMessage" class="status-message">
+                        Start monitoring when you are ready.
+                    </p>
+                </article>
+
+                <article class="panel breakdown-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Time Breakdown</h3>
+                            <p>Distribution of your current session</p>
+                        </div>
+                    </div>
+
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">
+                            <span><i class="legend-dot focused-dot"></i>Focused</span>
+                            <strong id="focusedTime">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="focusedBar"
+                                 class="progress-fill focused-fill"
+                                 style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">
+                            <span><i class="legend-dot distracted-dot"></i>Possibly Distracted</span>
+                            <strong id="distractedTime">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="distractedBar"
+                                 class="progress-fill distracted-fill"
+                                 style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">
+                            <span><i class="legend-dot closure-dot"></i>Prolonged Eye Closure</span>
+                            <strong id="eyeClosureTime">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="eyeClosureBar"
+                                 class="progress-fill closure-fill"
+                                 style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">
+                            <span><i class="legend-dot unknown-dot"></i>Unknown</span>
+                            <strong id="unknownTime">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="unknownBar"
+                                 class="progress-fill unknown-fill"
+                                 style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="metric-row">
+                        <span>Eye-closure events</span>
+                        <strong id="eyeClosureEvents">0</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Head pitch</span>
+                        <strong id="pitch">0°</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Head yaw</span>
+                        <strong id="yaw">0°</strong>
+                    </div>
+                </article>
+            </section>
+
+            <section class="analytics-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">VISUAL INSIGHTS</p>
+                        <h2>Session Analytics</h2>
+                    </div>
+                    <p class="section-description">
+                        Charts update using live metrics and saved session history.
+                    </p>
+                </div>
+
+                <div class="chart-grid">
+                    <article class="panel chart-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Focus Distribution</h3>
+                                <p>Current session time by state</p>
+                            </div>
+                        </div>
+                        <div class="chart-container doughnut-container">
+                            <canvas id="focusChart"></canvas>
+                        </div>
+                        <p id="focusChartNote" class="chart-note">
+                            Start a session to see your time distribution.
+                        </p>
+                    </article>
+
+                    <article class="panel chart-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Session Comparison</h3>
+                                <p>Focus percentage per saved session</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="sessionFocusChart"></canvas>
+                        </div>
+                        <p class="chart-note">
+                            Compare focus percentages across your recent sessions.
+                        </p>
+                    </article>
+
+                    <article class="panel chart-panel chart-wide">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Distraction Trends</h3>
+                                <p>Distraction events across saved sessions</p>
+                            </div>
+                        </div>
+                        <div class="chart-container trend-container">
+                            <canvas id="distractionTrendChart"></canvas>
+                        </div>
+                        <p class="chart-note">
+                            Sessions are shown from oldest to newest.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="panel history-panel">
+                <div class="panel-heading history-heading">
+                    <div>
+                        <p class="eyebrow">PAST PERFORMANCE</p>
+                        <h2>Session History</h2>
+                        <p>Saved monitoring sessions from your local machine.</p>
+                    </div>
+                    <button id="refreshHistoryBtn" class="btn btn-secondary">
+                        ↻ Refresh History
+                    </button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Session</th>
+                                <th>Duration</th>
+                                <th>Focus</th>
+                                <th>Distractions</th>
+                                <th>Eye-closure events</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <tr>
+                                <td colspan="5" class="empty-cell">
+                                    Loading session history...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <p>
+                    FocusGuard AI · Local webcam processing ·
+                    Attention signals are estimates, not a medical diagnosis.
+                </p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
